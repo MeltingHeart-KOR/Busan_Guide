@@ -54,14 +54,14 @@ export default function PlusGrid() {
     let mouseMoved = false
 
     function layout() {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      const min = Math.min(canvas.width, canvas.height)
+      canvas!.width = window.innerWidth
+      canvas!.height = window.innerHeight
+      const min = Math.min(canvas!.width, canvas!.height)
       for (let i = 0; i < GRID_LENGTH; i++) {
         for (let j = 0; j < GRID_LENGTH; j++) {
           const sign = signs[i][j]
-          sign.left = (canvas.width / (GRID_LENGTH + 1)) * (i + 1)
-          sign.top = (canvas.height / (GRID_LENGTH + 1)) * (j + 1)
+          sign.left = (canvas!.width / (GRID_LENGTH + 1)) * (i + 1)
+          sign.top = (canvas!.height / (GRID_LENGTH + 1)) * (j + 1)
           sign.width = min / 50
           sign.height = min / 50
         }
@@ -73,7 +73,7 @@ export default function PlusGrid() {
       for (let i = 0; i < GRID_LENGTH; i++) {
         for (let j = 0; j < GRID_LENGTH; j++) {
           const sign = signs[i][j]
-          let hyp = Math.min(canvas.width, canvas.height) / (GRID_LENGTH + 1) / 2
+          let hyp = Math.min(canvas!.width, canvas!.height) / (GRID_LENGTH + 1) / 2
           const d = dist([sign.left, sign.top], [mouse.x, mouse.y])
           const ax = mouse.x - sign.left
           const ay = mouse.y - sign.top
@@ -94,8 +94,8 @@ export default function PlusGrid() {
     }
 
     function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.strokeStyle = 'rgba(18, 60, 76, 0.4)'
+      ctx!.clearRect(0, 0, canvas!.width, canvas!.height)
+      ctx!.strokeStyle = 'rgba(18, 60, 76, 0.4)'
 
       if (mouseOver && mouseMoved) {
         calculateSigns()
@@ -104,7 +104,7 @@ export default function PlusGrid() {
 
       for (let i = 0; i < GRID_LENGTH; i++) {
         for (let j = 0; j < GRID_LENGTH; j++) {
-          signs[i][j].draw(ctx)
+          signs[i][j].draw(ctx!)
         }
       }
     }
