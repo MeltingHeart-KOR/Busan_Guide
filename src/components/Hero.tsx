@@ -89,13 +89,15 @@ export default function Hero() {
   const svgRef = useRef<SVGSVGElement>(null)
   const seaPathRef = useRef<SVGPathElement>(null)
   const crestPathRef = useRef<SVGPathElement>(null)
+  const photoRef = useRef<SVGImageElement>(null)
 
   useEffect(() => {
     const section = sectionRef.current
     const svg = svgRef.current
     const seaPath = seaPathRef.current
     const crestPath = crestPathRef.current
-    if (!section || !svg || !seaPath || !crestPath) return
+    const photo = photoRef.current
+    if (!section || !svg || !seaPath || !crestPath || !photo) return
 
     let width = 0
     let height = 0
@@ -117,6 +119,11 @@ export default function Hero() {
       wavelength = width / (CYCLES * 2 * Math.PI)
       amplitude = Math.max(20, Math.min(46, height * 0.05))
       svg!.setAttribute('viewBox', `0 0 ${width} ${height}`)
+      // fit the full (uncropped) photo into just the band the wave ever reveals,
+      // so "meet" scales it against the visible area instead of the whole section
+      const visibleTop = baseY - amplitude
+      photo!.setAttribute('y', String(visibleTop))
+      photo!.setAttribute('height', String(height - visibleTop))
     }
     layout()
 
@@ -194,8 +201,12 @@ export default function Hero() {
             <stop offset="0%" stopColor="rgba(18,60,76,0.15)" />
             <stop offset="100%" stopColor="rgba(18,60,76,0.55)" />
           </linearGradient>
+          <filter id="hero-sea-blur" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="22" />
+          </filter>
         </defs>
         <g clipPath="url(#hero-sea-clip)">
+          {/* blurred cover fill so the letterboxed edges of the full photo below never show bare tint */}
           <image
             href="/images/hero-gwangan.jpg"
             x="0"
@@ -203,6 +214,18 @@ export default function Hero() {
             width="100%"
             height="100%"
             preserveAspectRatio="xMidYMid slice"
+            filter="url(#hero-sea-blur)"
+          />
+          <rect x="0" y="0" width="100%" height="100%" fill="rgba(18,60,76,0.35)" />
+          {/* the full photo, uncropped — y/height are set in JS to the band the wave can reveal */}
+          <image
+            ref={photoRef}
+            href="/images/hero-gwangan.jpg"
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+            preserveAspectRatio="xMidYMid meet"
           />
           <rect x="0" y="0" width="100%" height="100%" fill="url(#hero-sea-tint)" />
         </g>

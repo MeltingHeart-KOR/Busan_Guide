@@ -45,12 +45,12 @@ export default function PickUpSection() {
     <section className="relative z-20 bg-card/25 backdrop-blur-sm px-5 pt-[60px] pb-[90px]" id="course-preview">
       <div className="inline-block -rotate-3 mb-[30px] ml-1.5">
         <div
-          className="italic text-navy text-[42px] leading-none"
+          className="italic text-[#5b6f9e] text-[42px] leading-none"
           style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
         >
           Course Preview
         </div>
-        <span className="block italic text-[13px] text-sub mt-2 font-medium tracking-[0.05em]">
+        <span className="block italic text-[13px] text-[#5b6f9e] mt-2 font-medium tracking-[0.05em]">
           ~ 路線図で巡る5つのテーマ旅 ~
         </span>
       </div>
