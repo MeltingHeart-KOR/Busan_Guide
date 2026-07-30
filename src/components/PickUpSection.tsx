@@ -2,14 +2,14 @@ import PickUpCard from './PickUpCard'
 
 const courses = [
   {
-    image: '/images/course-retro.png',
+    image: 'https://images.unsplash.com/photo-1596785236414-3b235f4ff58a?w=240&q=70&auto=format&fit=crop',
     line: 'l1' as const,
     lineLabel: '1号線 ・ 釜山駅周辺',
     name: '釜山到着！レトロ街歩き',
     description: '山と海が見渡せる草梁イバグギルを巡る、釜山旅のスタートコース。',
   },
   {
-    image: '/images/course-cafe.png',
+    image: 'https://images.unsplash.com/photo-1712730642507-d4ad0904e997?w=240&q=70&auto=format&fit=crop',
     line: 'l2' as const,
     lineLabel: '2号線 ・ 田浦カフェ街',
     name: 'オシャレカフェ＆トレンド',
@@ -23,14 +23,14 @@ const courses = [
     description: '海鮮市場と活気ある屋台街で釜山名物を食べ歩く満腹コース。',
   },
   {
-    image: '/images/course-night.png',
+    image: 'https://images.unsplash.com/photo-1759761383060-e87df86f880f?w=240&q=70&auto=format&fit=crop',
     line: 'l2' as const,
     lineLabel: '2号線 ・ 広安里ビーチ',
     name: 'オーシャンビュー＆ロマンチック夜景',
     description: '広安大橋のライトアップと波音を楽しむナイトヒーリングコース。',
   },
   {
-    image: '/images/course-onsen.png',
+    image: 'https://images.unsplash.com/photo-1766485108563-4fa16ba48140?w=240&q=70&auto=format&fit=crop',
     line: 'l1' as const,
     lineLabel: '1号線 ・ 温泉場エリア',
     name: '癒やしの伝統温泉＆リフレッシュ',

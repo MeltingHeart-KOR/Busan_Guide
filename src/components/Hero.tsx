@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 
-const SEGMENTS = 48
-const SKY_TOP = '#fdeaf4'
-const SKY_BOTTOM = '#f7d6e7'
-
+const SEGMENTS = 56
+const INK = '#22304d'
+const CREAM = '#fdf2f7'
 const EASE_OUT = [0.16, 1, 0.3, 1] as const
 
 const MESSAGES = ['今日どこ行く？', '海雲台、行こう。', '地下鉄で30分！']
@@ -12,28 +11,20 @@ const TYPE_MS = 100
 const DELETE_MS = 50
 const PAUSE_MS = 2000
 
-const PHOTOS = [
-  {
-    src: 'https://images.unsplash.com/photo-1672671187899-a10f547341f1?w=440&q=70&auto=format&fit=crop',
-    caption: '甘川文化村',
-    className: 'hidden md:block left-[4%] lg:left-[7%] top-[16%] w-[150px] lg:w-[180px] -rotate-6',
-    delay: 0.5,
-    bobDelay: 0,
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1610696326548-07109f442da6?w=440&q=70&auto=format&fit=crop',
-    caption: '海東龍宮寺',
-    className: 'hidden md:block right-[4%] lg:right-[7%] top-[13%] w-[150px] lg:w-[180px] rotate-5',
-    delay: 0.65,
-    bobDelay: 1.2,
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1700277842839-2ef54f815f47?w=440&q=70&auto=format&fit=crop',
-    caption: '海雲台ビーチ',
-    className: 'hidden lg:block right-[16%] top-[46%] w-[150px] -rotate-3',
-    delay: 0.8,
-    bobDelay: 2.4,
-  },
+/** Busan at dusk/night — all four hold the ink-above / cream-below contrast
+ *  floor under the hero tints, measured per photo. */
+const WALLPAPERS = [
+  'https://images.unsplash.com/photo-1762759448909-28d3eb42b825?w=1800&q=68&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1704544993415-9c6b80c359ed?w=1800&q=68&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1704544998076-8bc53108ff36?w=1800&q=68&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1641730146205-f6e594f7a619?w=1800&q=68&auto=format&fit=crop',
+]
+const WALLPAPER_MS = 7000
+
+const SPOTS = [
+  { src: 'https://images.unsplash.com/photo-1672671187899-a10f547341f1?w=240&q=70&auto=format&fit=crop', caption: '甘川文化村' },
+  { src: 'https://images.unsplash.com/photo-1610696326548-07109f442da6?w=240&q=70&auto=format&fit=crop', caption: '海東龍宮寺' },
+  { src: 'https://images.unsplash.com/photo-1700277842839-2ef54f815f47?w=240&q=70&auto=format&fit=crop', caption: '海雲台' },
 ]
 
 function lerp(a: number, b: number, t: number) {
@@ -64,23 +55,37 @@ function TypingMessages() {
   }, [text, deleting, msgIndex])
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 1.1, ease: EASE_OUT }}
-      className="absolute left-6 sm:left-[9%] bottom-[13%] z-10"
-    >
-      <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl rounded-bl-sm px-4 py-2.5 shadow-[0_6px_20px_rgba(18,60,76,0.25)]">
-        <span className="text-[13px] sm:text-[14px] font-bold text-ink whitespace-nowrap min-h-[1.5em] inline-block">
-          {text}
-        </span>
-        <motion.span
-          className="inline-block w-[2px] h-[1em] bg-ink ml-1 align-middle"
-          animate={{ opacity: [0, 1, 0] }}
-          transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-        />
+    <div className="inline-flex items-center gap-1.5 mb-4 text-[12px] tracking-[0.04em]">
+      <span className="opacity-55">「</span>
+      <span className="min-h-[1.4em] whitespace-nowrap">{text}</span>
+      <motion.span
+        className="inline-block w-[1.5px] h-[1.1em] align-middle"
+        style={{ background: CREAM }}
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+      />
+      <span className="opacity-55">」</span>
+    </div>
+  )
+}
+
+/** Rendered twice — once in ink above the waterline, once in cream below it. */
+function Headline() {
+  return (
+    <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10">
+      <div className="text-[10px] tracking-[0.34em] font-bold opacity-90 mb-5 sm:mb-7">
+        2&nbsp;LINES&ensp;・&ensp;6&nbsp;SPOTS&ensp;・&ensp;BUSAN
       </div>
-    </motion.div>
+      <h1
+        className="hero-display m-0"
+        style={{ fontSize: 'clamp(40px, min(11.5vw, 13.5svh), 138px)', lineHeight: 0.98 }}
+      >
+        <span className="block">波の音まで、</span>
+        <span className="block" style={{ marginLeft: '1.15em' }}>
+          地下鉄で。
+        </span>
+      </h1>
+    </div>
   )
 }
 
@@ -88,23 +93,33 @@ export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const seaPathRef = useRef<SVGPathElement>(null)
+  const skyPathRef = useRef<SVGPathElement>(null)
   const crestPathRef = useRef<SVGPathElement>(null)
-  const photoRef = useRef<SVGImageElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const reduceMotion = useReducedMotion()
+  const [wallpaper, setWallpaper] = useState(0)
+
+  useEffect(() => {
+    if (reduceMotion) return
+    const id = setInterval(() => setWallpaper((w) => (w + 1) % WALLPAPERS.length), WALLPAPER_MS)
+    return () => clearInterval(id)
+  }, [reduceMotion])
 
   useEffect(() => {
     const section = sectionRef.current
     const svg = svgRef.current
     const seaPath = seaPathRef.current
+    const skyPath = skyPathRef.current
     const crestPath = crestPathRef.current
-    const photo = photoRef.current
-    if (!section || !svg || !seaPath || !crestPath || !photo) return
+    const overlay = overlayRef.current
+    if (!section || !svg || !seaPath || !skyPath || !crestPath || !overlay) return
 
     let width = 0
     let height = 0
     let baseY = 0
     let wavelength = 400
     let amplitude = 22
-    const CYCLES = 1.8
+    const CYCLES = 1.6
 
     let phase = 0
     let targetPhase = 0
@@ -112,18 +127,13 @@ export default function Hero() {
 
     function layout() {
       const rect = section!.getBoundingClientRect()
+      if (!rect.width || !rect.height) return
       width = rect.width
       height = rect.height
-      baseY = height * 0.52
-      // span CYCLES full sine periods across the full width
+      baseY = height * 0.54
       wavelength = width / (CYCLES * 2 * Math.PI)
-      amplitude = Math.max(20, Math.min(46, height * 0.05))
+      amplitude = Math.max(18, Math.min(42, height * 0.045))
       svg!.setAttribute('viewBox', `0 0 ${width} ${height}`)
-      // fit the full (uncropped) photo into just the band the wave ever reveals,
-      // so "meet" scales it against the visible area instead of the whole section
-      const visibleTop = baseY - amplitude
-      photo!.setAttribute('y', String(visibleTop))
-      photo!.setAttribute('height', String(height - visibleTop))
     }
     layout()
 
@@ -131,23 +141,31 @@ export default function Hero() {
       const pts: [number, number][] = []
       for (let i = 0; i <= SEGMENTS; i++) {
         const x = (width / SEGMENTS) * i
-        const y = baseY + Math.sin(x / wavelength + currentPhase) * amplitude
-        pts.push([x, y])
+        pts.push([x, baseY + Math.sin(x / wavelength + currentPhase) * amplitude])
       }
       return pts
     }
 
     function render() {
       const pts = buildPoints(phase)
-      let seaD = `M0,${pts[0][1].toFixed(1)} `
-      let crestD = `M0,${pts[0][1].toFixed(1)} `
+      let line = `M0,${pts[0][1].toFixed(1)}`
       for (let i = 1; i < pts.length; i++) {
-        seaD += `L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)} `
-        crestD += `L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)} `
+        line += ` L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`
       }
-      seaD += `L${width},${height} L0,${height} Z`
-      seaPath!.setAttribute('d', seaD)
-      crestPath!.setAttribute('d', crestD)
+
+      seaPath!.setAttribute('d', `${line} L${width},${height} L0,${height} Z`)
+      crestPath!.setAttribute('d', line)
+
+      let sky = `M0,0 L${width},0`
+      for (let i = pts.length - 1; i >= 0; i--) {
+        sky += ` L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`
+      }
+      skyPath!.setAttribute('d', `${sky} Z`)
+
+      // same waterline, as a CSS polygon, so the cream copy layer is revealed
+      // only where the sea is — the wave slices the type as it moves
+      const poly = pts.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')
+      overlay!.style.clipPath = `polygon(${poly},${width}px ${height}px,0px ${height}px)`
     }
 
     function tick() {
@@ -158,18 +176,17 @@ export default function Hero() {
     tick()
 
     function onMouseMove(e: MouseEvent | TouchEvent) {
-      let clientX: number
-      if ('touches' in e && e.touches[0]) {
-        clientX = e.touches[0].clientX
-      } else {
-        clientX = (e as MouseEvent).clientX
-      }
-      const norm = (clientX / window.innerWidth) * 2 - 1 // -1..1
-      targetPhase = norm * 1.6
+      const clientX = 'touches' in e && e.touches[0] ? e.touches[0].clientX : (e as MouseEvent).clientX
+      targetPhase = ((clientX / window.innerWidth) * 2 - 1) * 1.7
     }
 
-    // the section is sized in svh, so its box can settle after mount — track it
-    const ro = new ResizeObserver(() => layout())
+    // the section is sized in svh, so its box can settle after mount — track it.
+    // render() here too: rAF is paused while the tab is hidden, so a resize that
+    // lands in that window would otherwise never reach the DOM.
+    const ro = new ResizeObserver(() => {
+      layout()
+      render()
+    })
     ro.observe(section)
 
     window.addEventListener('mousemove', onMouseMove)
@@ -183,139 +200,115 @@ export default function Hero() {
     }
   }, [])
 
+  const rise = reduceMotion ? {} : { y: 24 }
+
   return (
     <section ref={sectionRef} className="relative w-full h-[100svh] min-h-[560px] overflow-hidden">
-      {/* sky */}
-      <div
-        className="absolute inset-0"
-        style={{ background: `linear-gradient(180deg, ${SKY_TOP} 0%, ${SKY_BOTTOM} 100%)` }}
-      />
+      {/* wallpaper stack — all mounted so a switch never lands on an unloaded image */}
+      {WALLPAPERS.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1800ms] ease-in-out"
+          style={{ opacity: i === wallpaper ? 1 : 0 }}
+        />
+      ))}
 
-      {/* sea: hero-gwangan.jpg clipped by the wave path, tinted teal + white crest line */}
-      <svg ref={svgRef} className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+      {/* the waterline splits one photo into two moods: pink dawn above, night sea below */}
+      <svg ref={svgRef} className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden>
         <defs>
-          <clipPath id="hero-sea-clip">
-            <path ref={seaPathRef} d="" />
-          </clipPath>
-          <linearGradient id="hero-sea-tint" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(18,60,76,0.15)" />
-            <stop offset="100%" stopColor="rgba(18,60,76,0.55)" />
+          <linearGradient id="hero-sky-wash" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(253,236,245,0.82)" />
+            <stop offset="100%" stopColor="rgba(247,214,231,0.55)" />
           </linearGradient>
-          <filter id="hero-sea-blur" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="22" />
-          </filter>
+          <linearGradient id="hero-sea-tint" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(11,30,48,0.48)" />
+            <stop offset="100%" stopColor="rgba(11,30,48,0.82)" />
+          </linearGradient>
         </defs>
-        <g clipPath="url(#hero-sea-clip)">
-          {/* blurred cover fill so the letterboxed edges of the full photo below never show bare tint */}
-          <image
-            href="/images/hero-gwangan.jpg"
-            x="0"
-            y="0"
-            width="100%"
-            height="100%"
-            preserveAspectRatio="xMidYMid slice"
-            filter="url(#hero-sea-blur)"
-          />
-          <rect x="0" y="0" width="100%" height="100%" fill="rgba(18,60,76,0.35)" />
-          {/* the full photo, uncropped — y/height are set in JS to the band the wave can reveal */}
-          <image
-            ref={photoRef}
-            href="/images/hero-gwangan.jpg"
-            x="0"
-            y="0"
-            width="100%"
-            height="100%"
-            preserveAspectRatio="xMidYMid meet"
-          />
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#hero-sea-tint)" />
-        </g>
+        <path ref={skyPathRef} d="" fill="url(#hero-sky-wash)" />
+        <path ref={seaPathRef} d="" fill="url(#hero-sea-tint)" />
         <path
           ref={crestPathRef}
           d=""
           fill="none"
-          stroke="#ffffff"
-          strokeWidth="3"
+          stroke={CREAM}
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ filter: 'drop-shadow(0 2px 4px rgba(18,60,76,0.25))' }}
+          style={{ filter: 'drop-shadow(0 1px 10px rgba(253,242,247,0.55))' }}
         />
       </svg>
 
-      {/* floating attraction photo cards */}
-      {PHOTOS.map((photo) => (
-        <motion.div
-          key={photo.caption}
-          initial={{ opacity: 0, y: 30, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, delay: photo.delay, ease: EASE_OUT }}
-          className={`absolute z-10 pointer-events-none ${photo.className}`}
-        >
-          <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: photo.bobDelay }}
-            className="bg-white p-2 pb-1.5 rounded-md shadow-[0_10px_30px_rgba(18,60,76,0.25)]"
-          >
-            <img src={photo.src} alt={photo.caption} className="block w-full aspect-[4/3] object-cover rounded-sm" />
-            <div className="text-center text-[10px] text-sub tracking-[0.08em] pt-1.5">{photo.caption}</div>
-          </motion.div>
-        </motion.div>
-      ))}
-
-      {/* copy overlay — sits in the sky band above the waterline (baseY = 52% of height) */}
-      {/* height = sky band minus max wave amplitude, so the crest can never reach the copy */}
-      <div
-        className="absolute inset-x-0 top-0 z-10 pointer-events-none flex items-center justify-center px-5 pt-12"
-        style={{ height: 'calc(52% - clamp(20px, 5svh, 46px))' }}
+      {/* two identical copies of the headline; the lower one is clipped to the sea */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.4, ease: EASE_OUT }}
+        className="absolute inset-0 z-20 pointer-events-none"
       >
-        <div className="text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE_OUT }}
-            className="inline-block bg-navy text-white text-[10px] font-bold px-[10px] py-[5px] rounded -rotate-3 mb-3"
-          >
-            GUIDE
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, ease: EASE_OUT }}
-            className="font-instrument font-semibold leading-[1.15] tracking-tight text-ink m-0 mb-3"
-            style={{ fontSize: 'clamp(28px, 6.5svh, 58px)' }}
-          >
-            波の音まで、
-            <br />
-            地下鉄で。
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.3, ease: EASE_OUT }}
-          >
-            <p className="text-[13px] sm:text-[14.5px] text-sub leading-relaxed max-w-[420px] mx-auto m-0">
-              海沿いの夜景から下町の市場まで。
-              <br />
-              釜山の見どころを、駅ごとにまとめた小さな旅ガイド。
-            </p>
-            <div className="hero-stat mt-3 text-[10px] tracking-[0.22em] text-navy font-bold">
-              2 LINES&ensp;·&ensp;6 SPOTS&ensp;·&ensp;BUSAN
-            </div>
-          </motion.div>
+        <div className="absolute inset-0 flex items-center" style={{ color: INK }}>
+          <Headline />
         </div>
-      </div>
+        {/* soft halo only here: specular city lights sit right under the waterline
+            and drop cream-on-photo contrast below the large-text floor */}
+        <div
+          ref={overlayRef}
+          className="absolute inset-0 flex items-center"
+          style={{ color: CREAM, textShadow: '0 2px 26px rgba(8,24,40,0.65)' }}
+          aria-hidden
+        >
+          <Headline />
+        </div>
+      </motion.div>
 
-      <TypingMessages />
-
-      {/* scroll hint — sits over the dark sea, so it is white */}
-      <a
-        href="#main"
-        className="hero-scroll-hint absolute bottom-6 left-1/2 z-10"
-        aria-label="スクロールして続きを見る"
+      {/* supporting copy + CTA, low left, over the dark sea */}
+      <motion.div
+        initial={{ opacity: 0, ...rise }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.1, delay: 0.55, ease: EASE_OUT }}
+        className="absolute inset-x-0 bottom-9 sm:bottom-12 z-20"
+        style={{ color: CREAM }}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </a>
+        <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 flex items-end justify-between gap-8">
+          <div>
+            <TypingMessages />
+            <p className="text-[13px] sm:text-[14px] leading-relaxed opacity-85 max-w-[300px] m-0 mb-5">
+              駅ごとにまとめた、釜山の小さな旅ガイド。
+            </p>
+            <a
+              href="#course-preview"
+              className="hero-cta inline-flex items-center gap-3 text-[12.5px] tracking-[0.08em] px-5 py-2.5 rounded-full"
+            >
+              コースを見る
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <path d="M5 12h13M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
+
+          <div className="hidden md:flex gap-3">
+            {SPOTS.map((spot, i) => (
+              <motion.figure
+                key={spot.caption}
+                initial={{ opacity: 0, ...rise }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.75 + i * 0.12, ease: EASE_OUT }}
+                className="m-0 w-[74px] lg:w-[86px]"
+              >
+                <img
+                  src={spot.src}
+                  alt=""
+                  className="block w-full aspect-square object-cover rounded-[3px] opacity-90"
+                />
+                <figcaption className="text-[9.5px] tracking-[0.1em] opacity-70 pt-2">{spot.caption}</figcaption>
+              </motion.figure>
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </section>
   )
 }

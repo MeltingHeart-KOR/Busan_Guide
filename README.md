@@ -1,3 +1,11 @@
+## About this project
+
+BUSAN GUIDE is a non-commercial, educational portfolio project (student/team assignment) and is not affiliated with Busan Transportation Corporation or any official tourism body.
+
+- **Photos**: all photography used in this site is sourced from [Unsplash](https://unsplash.com) under the [Unsplash License](https://unsplash.com/license), which permits commercial and non-commercial use without attribution.
+- **Fonts**: Instrument Serif, Shippori Mincho, and M PLUS Rounded 1c, served via Google Fonts, all licensed under the [SIL Open Font License](https://scripts.sil.org/OFL).
+- **Code**: built with React, Vite, TypeScript, Tailwind CSS, motion/react, and GSAP.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
