@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>広安駅 クァンアンえき | BUSAN GUIDE</title>
 <style>
   :root{
@@ -67,29 +67,24 @@
   .ko{font-size:14px;color:var(--sub);margin:0 0 16px;}
   .desc{font-size:14.5px;color:var(--ink);margin:0;}
 
-  /* カテゴリーカード */
+  /* カテゴリーカード (4개에서 3개로 변경) */
   .cats{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
-    gap:8px;
+    gap:10px;
     margin-top:32px;
-  }
-  @media (max-width: 480px) {
-    .cats {
-      grid-template-columns:repeat(2, 1fr);
-    }
   }
   .ccard{
     background:var(--white);
     border:1px solid var(--border);
     border-radius:14px;
-    padding:18px 6px;
+    padding:22px 8px;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
-    font-size:14px;
+    font-size:15px;
     font-weight:700;
     color:var(--ink);
     box-shadow:0 4px 0 rgba(0,0,0,.04);
@@ -101,9 +96,9 @@
     box-shadow:0 6px 0 rgba(0,0,0,.08);
   }
   .ccard .icon{
-    font-size:24px;
+    font-size:26px;
     line-height:1;
-    margin-bottom:6px;
+    margin-bottom:8px;
   }
 
   /* アクセス情報ボックス */
@@ -241,6 +236,12 @@
     margin: 0 0 6px 0;
     line-height: 1.6;
   }
+  /* 주소용 스타일 추가 */
+  .item-address {
+    font-size: 12px;
+    color: var(--sub);
+    margin: 0 0 6px 0;
+  }
   .item-tip {
     font-size: 12px;
     color: var(--ink);
@@ -259,7 +260,7 @@
     <svg viewBox="0 0 40 40" fill="none"><path d="M4 6h20l12 14-12 14H4V6z" fill="var(--navy)"/></svg>
     BUSAN GUIDE
   </div>
-  <a class="back" href="/#map">← 路線図に戻る</a>
+  <a class="back" href="../index.html#map">← 路線図に戻る</a>
 </nav>
 
 <div class="wrap">
@@ -276,14 +277,13 @@
     </div>
   </div>
 
-  <!-- 카테고리 3개 구성 -->
+  <!-- 카테고리 3개로 통합 (グルメ+カフェ) -->
   <div class="cats">
-    <a href="javascript:void(0)" class="ccard" onclick="openPanel('foodCafePanel')">
-      <span class="icon">🍱☕</span>
-      <span>グルメ&カフェ</span>
+    <a href="javascript:void(0)" class="ccard" onclick="openPanel('foodPanel')">
+      <span class="icon">🍱</span>
+      <span>グルメ＆カフェ</span>
     </a>
 
-    <!-- 볼거리 아이콘을 빨간색 장소 핀(📍)으로 변경 -->
     <a href="javascript:void(0)" class="ccard" onclick="openPanel('sightPanel')">
       <span class="icon" style="color: #e53e3e;">📍</span>
       <span>見どころ</span>
@@ -291,7 +291,7 @@
 
     <a href="javascript:void(0)" class="ccard" onclick="openPanel('stayPanel')">
       <span class="icon">🏨</span>
-      <span>宿泊 (ホテル)</span>
+      <span>ホテル</span>
     </a>
   </div>
 
@@ -303,64 +303,71 @@
     ・<b>釜山駅:</b> 地下鉄1号線 → 西面(ソミョン)駅で2号線に乗り換え約30分
   </div>
 
-  <a class="backbtn" href="/#map">路線図に戻ってほかの駅を見る</a>
+  <a class="backbtn" href="../index.html#map">路線図に戻ってほかの駅を見る</a>
 </div>
 
 <footer>
-  BUSAN TRAVEL GUIDE &copy; BUSAN GUIDE TEAM. All Rights Reserved.
+  BUSAN TRAVEL GUIDE &copy; POWER RANGERS. All Rights Reserved.
 </footer>
 
 <!-- オーバーレイ -->
 <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
 
 <!-- ============================================== -->
-<!-- 1. 그루메&카페 합친 패널 -->
+<!-- 1. グルメ & カフェ パネル -->
 <!-- ============================================== -->
-<div class="side-panel" id="foodCafePanel">
+<div class="side-panel" id="foodPanel">
   <div class="panel-header">
-    <h2>🍱☕ 広安 グルメ&カフェ</h2>
+    <h2>🍱 広安 グルメ＆カフェ (5選)</h2>
     <div class="close-btn" onclick="closeAllPanels()">&times;</div>
   </div>
   <div class="item-list">
+    <!-- 식당 -->
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+민락본동로19번길+16" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">トンソウ 広安店</h3><span class="item-rating">⭐ 4.8</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">トンショウ 広安店</h3><span class="item-rating">⭐ 4.8</span></div>
       <p class="item-jp">톤쇼우 광안점 (プレミアムトンカツ)</p>
       <p class="item-desc">釜山で最も行列ができる超人気熟成豚カツ専門店。肉汁溢れる極上のトンカツが味わえます。</p>
-      <p class="item-tip">💡 CATCHTABLE（캐치테이블）アプリでの pre-waiting（事前順番待ち）が必須です!</p>
+      <p class="item-address">📍 釜山 水営区 民楽本洞路19番ギル 16</p>
+      <p class="item-tip">💡 CATCHTABLE（캐치테이블）アプリでの順番待ち登録(ウェイティング)が必須です！</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+153" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">ハルメチェチョプクッ 広安本店</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">ハルメチェチョプクク 広安本店</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">할매재첩국 광안본점 (シジミスープ定食)</p>
       <p class="item-desc">あっさりとした澄んだシジミスープと豊富なビビンバ用のおかずがセットになった伝統のソウルフード。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 153</p>
       <p class="item-tip">💡 旅の朝食や酔いざまし（ヘジャン）にぴったりです。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+261" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">チョピルサル豚焼き 広安店</h3><span class="item-rating">⭐ 4.6</span></div>
-      <p class="item-jp">초필살돼지구이 광안점 (厚切り豚皮・サムギョプサル)</p>
-      <p class="item-desc">香ばしい豚皮（껍데기）とサムギョプサルが名物の行列店。カリカリモチモチの食感が絶品。</p>
+      <p class="item-jp">초필살돼지구이 광안점 (コッテギ・サムギョプサル)</p>
+      <p class="item-desc">香ばしいコッテギ（豚皮）とサムギョプサルが名物の行列店。カリカリモチモチの食感が絶品。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 261</p>
       <p class="item-tip">💡 夕食時は混雑するため、早めの時間帯の訪問をおすすめします。</p>
     </a>
+    <!-- 카페 추가 -->
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+237+3층" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">チャソンチェッ (차선책)</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">차선책 (オーシャンビュー和風デザートカフェ)</p>
-      <p class="item-desc">広安大橋を一望できる落ち着いたインテリアのカフェ。手作りのガトーケーキや signature ドリンクが人気。</p>
+      <p class="item-desc">広安大橋を一望できる落ち着いたインテリアのカフェ。手作りのガトーケーキやシグネチャードリンクが人気。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 237 3階</p>
       <p class="item-tip">💡 窓際席からの広安里ビーチの眺めは絶景です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+239+7층" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">トゥボクス 広安里店</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">뚜벅스 광안리점 (7階 パノラマビューカフェ)</p>
       <p class="item-desc">7階の高層から広安里の海を見下ろせる絶景カフェ。旅行者に嬉しい荷物保管サービスも提供。</p>
-      <p class="item-tip">💡 昼の view はもちろん、夜の広安大橋のライトアップ鑑賞にも最適。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 239 7階</p>
+      <p class="item-tip">💡 昼のオーシャンビューはもちろん、夜の広安大橋のライトアップ鑑賞にも最適。</p>
     </a>
   </div>
 </div>
 
 <!-- ============================================== -->
-<!-- 3. 見どころ パネル -->
+<!-- 2. 見どころ パネル -->
 <!-- ============================================== -->
 <div class="side-panel" id="sightPanel">
   <div class="panel-header">
-    <h2>📍 広安 見どころ</h2>
+    <h2>📍 広安 見どころ (5選)</h2>
     <div class="close-btn" onclick="closeAllPanels()">&times;</div>
   </div>
   <div class="item-list">
@@ -368,41 +375,46 @@
       <div class="item-title-wrap"><h3 class="item-title">広安里海水浴場</h3><span class="item-rating">⭐ 4.8</span></div>
       <p class="item-jp">광안리해수욕장 (釜山を代表するビーチ)</p>
       <p class="item-desc">美しい砂浜と広安大橋のランドマーク景観が広がる人気ビーチ。周辺にはおしゃれなカフェやレストランが多数。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 219</p>
       <p class="item-tip">💡 夜の散歩やビーチでのひとときに最高のスポットです。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+219" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">広安里 M ドローンライトショー</h3><span class="item-rating">⭐ 4.9</span></div>
       <p class="item-jp">광안리 M 드론라이트쇼 (毎週土曜日開催)</p>
       <p class="item-desc">数百台のドローンが夜空を彩る幻想的なライトショー。季節やテーマに合わせた素晴らしい演出が楽しめます。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 219 (ビーチ一帯)</p>
       <p class="item-tip">💡 毎週土曜日に2回公演。事前に公演時間をチェックして訪問しましょう！</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+민락수변로17번길+56" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">Millac the Market</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">민락더마켓 (複合文化空間)</p>
       <p class="item-desc">海を眺めながらグルメやショッピング、トレンディなカルチャーを楽しめる大型複合文化空間。</p>
+      <p class="item-address">📍 釜山 水営区 民楽水辺路17番ギル 56</p>
       <p class="item-tip">💡 大階段に座って海を見ながらテイクアウトグルメを楽しむのがトレンド！</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+민락수변로+129" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">民楽水辺公園</h3><span class="item-rating">⭐ 4.4</span></div>
       <p class="item-jp">민락수변공원 (海辺のウォーターフロント公園)</p>
       <p class="item-desc">広安大橋を間近に臨む海辺の公園。潮風を感じながらのんびりと散策するのに最適です。</p>
+      <p class="item-address">📍 釜山 水営区 民楽水辺路 129</p>
       <p class="item-tip">💡 夜景を見ながら涼むのにぴったりなローカルスポットです。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+수영성로+43" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">水営史蹟公園</h3><span class="item-rating">⭐ 4.3</span></div>
       <p class="item-jp">수영사적공원 (歴史を感じる緑豊かな公園)</p>
       <p class="item-desc">朝鮮時代の水軍基地（水営）の跡地。天然記念物の大きなクスノキや歴史的遺物が残る静かな公園。</p>
+      <p class="item-address">📍 釜山 水営区 水営城路 43</p>
       <p class="item-tip">💡 賑やかなビーチから離れて静かに散策したい時におすすめです。</p>
     </a>
   </div>
 </div>
 
 <!-- ============================================== -->
-<!-- 4. 宿所 パネル -->
+<!-- 3. 宿所 パネル -->
 <!-- ============================================== -->
 <div class="side-panel" id="stayPanel">
   <div class="panel-header">
-    <h2>🏨 広安 宿泊 (ホテル)</h2>
+    <h2>🏨 広安 宿泊 (5選)</h2>
     <div class="close-btn" onclick="closeAllPanels()">&times;</div>
   </div>
   <div class="item-list">
@@ -410,30 +422,35 @@
       <div class="item-title-wrap"><h3 class="item-title">ケントホテル 広安里 by Kensington</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">켄트호텔 광안리 바이 켄싱턴</p>
       <p class="item-desc">広安里ビーチの真向かいに位置するスタイリッシュなホテル。ルーフトップバーからの夜景が人気。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 229</p>
       <p class="item-tip">💡 ビーチアクセス抜群で、ラウンジサービスも充実しています。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+217" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">ホメルス ホテル</h3><span class="item-rating">⭐ 4.4</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">ホテル ホメルス</h3><span class="item-rating">⭐ 4.4</span></div>
       <p class="item-jp">호메르스 호텔</p>
       <p class="item-desc">全室から広安大橋のオーシャンビューが楽しめるオーシャンフロントの伝統あるホテル。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路 217</p>
       <p class="item-tip">💡 広い客室と正面に広がる広安大橋のパノラマビューが魅力。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+278번길+42" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">広安里 H-AVENUE ホテル</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">광안리 에이치에비뉴 호텔</p>
       <p class="item-desc">洗練されたインテリアとテラスからの絶景が自慢のブティックホテル。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路278番ギル 42</p>
       <p class="item-tip">💡 テラス付きのお部屋から見る広安大橋の夜景が一番のオススメ！</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+광안해변로+278번길+42" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">オーシャントゥヘブン ホテル</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">오션투헤븐 호텔</p>
       <p class="item-desc">清潔でモダンな客室から美しい広安里の海を一望できるコスパ抜群のオーシャンビューホテル。</p>
+      <p class="item-address">📍 釜山 水営区 広安海辺路278番ギル 42</p>
       <p class="item-tip">💡 民楽水辺公園やMillac the Marketへのアクセスも良好です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산+수영구+민락수변로+175" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">ホテル AG405</h3><span class="item-rating">⭐ 4.3</span></div>
       <p class="item-jp">호텔AG405</p>
       <p class="item-desc">静かな民楽港側に位置し、モダンなデザインと落ち着いた雰囲気で海を楽しめるブティックホテル。</p>
+      <p class="item-address">📍 釜山 水営区 民楽水辺路 175</p>
       <p class="item-tip">💡 喧騒から離れてゆったりとオーシャンビューを楽しみたい方に最適です。</p>
     </a>
   </div>
@@ -449,7 +466,7 @@
   }
 
   function closeAllPanels() {
-    document.getElementById('foodCafePanel').classList.remove('active');
+    document.getElementById('foodPanel').classList.remove('active');
     document.getElementById('sightPanel').classList.remove('active');
     document.getElementById('stayPanel').classList.remove('active');
     document.getElementById('overlay').classList.remove('active');

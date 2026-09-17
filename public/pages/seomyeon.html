@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>西面駅 ソミョンえき | BUSAN GUIDE</title>
 <style>
   :root{
@@ -68,7 +68,7 @@
   .ko{font-size:14px;color:var(--sub);margin:0 0 16px;}
   .desc{font-size:14.5px;color:var(--ink);margin:0;}
 
-  /* カテゴリーカード */
+  /* カテゴリーカード (3개 통합 유지) */
   .cats{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
@@ -77,7 +77,7 @@
   }
   @media (max-width: 480px) {
     .cats {
-      grid-template-columns:repeat(2, 1fr);
+      grid-template-columns:repeat(3, 1fr);
     }
   }
   .ccard{
@@ -260,7 +260,7 @@
     <svg viewBox="0 0 40 40" fill="none"><path d="M4 6h20l12 14-12 14H4V6z" fill="var(--navy)"/></svg>
     BUSAN GUIDE
   </div>
-  <a class="back" href="/#map">← 路線図に戻る</a>
+  <a class="back" href="../index.html#map">← 路線図に戻る</a>
 </nav>
 
 <div class="wrap">
@@ -277,11 +277,11 @@
     </div>
   </div>
 
-  <!-- カテゴリー3つ -->
+  <!-- カテゴリー 3つ 통합 -->
   <div class="cats">
-    <a href="javascript:void(0)" class="ccard" onclick="openPanel('foodCafePanel')">
-      <span class="icon">🍱☕</span>
-      <span>グルメ&カフェ</span>
+    <a href="javascript:void(0)" class="ccard" onclick="openPanel('foodPanel')">
+      <span class="icon">🍱</span>
+      <span>グルメ＆カフェ</span>
     </a>
 
     <a href="javascript:void(0)" class="ccard" onclick="openPanel('sightPanel')">
@@ -291,7 +291,7 @@
 
     <a href="javascript:void(0)" class="ccard" onclick="openPanel('stayPanel')">
       <span class="icon">🏨</span>
-      <span>宿泊 (ホテル)</span>
+      <span>宿泊</span>
     </a>
   </div>
 
@@ -303,22 +303,22 @@
     ・<b>釜山駅:</b> 地下鉄1号線で約10分（乗り換えなし）
   </div>
 
-  <a class="backbtn" href="/#map">路線図に戻ってほかの駅を見る</a>
+  <a class="backbtn" href="../index.html#map">路線図に戻ってほかの駅を見る</a>
 </div>
 
 <footer>
-  BUSAN TRAVEL GUIDE &copy; BUSAN GUIDE TEAM. All Rights Reserved.
+  BUSAN TRAVEL GUIDE &copy; POWER RANGERS. All Rights Reserved.
 </footer>
 
 <!-- オーバーレイ -->
 <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
 
 <!-- ============================================== -->
-<!-- 1. 그루메&카페 합친 패널 -->
+<!-- 1. グルメ & カフェ パネル -->
 <!-- ============================================== -->
-<div class="side-panel" id="foodCafePanel">
+<div class="side-panel" id="foodPanel">
   <div class="panel-header">
-    <h2>🍱☕ 西面 グルメ&カフェ(5選)</h2>
+    <h2>🍱 西面 グルメ＆カフェ (5選)</h2>
     <div class="close-btn" onclick="closeAllPanels()">&times;</div>
   </div>
   <div class="item-list">
@@ -356,7 +356,7 @@
 </div>
 
 <!-- ============================================== -->
-<!-- 3. 見どころ パネル -->
+<!-- 2. 見どころ パネル (새로운 정보 완벽 반영) -->
 <!-- ============================================== -->
 <div class="side-panel" id="sightPanel">
   <div class="panel-header">
@@ -416,7 +416,7 @@
 </div>
 
 <!-- ============================================== -->
-<!-- 4. 宿泊 パネル -->
+<!-- 3. 宿泊 パネル (새로운 정보 완벽 반영) -->
 <!-- ============================================== -->
 <div class="side-panel" id="stayPanel">
   <div class="panel-header">
@@ -479,7 +479,7 @@
   }
 
   function closeAllPanels() {
-    document.getElementById('foodCafePanel').classList.remove('active');
+    document.getElementById('foodPanel').classList.remove('active');
     document.getElementById('sightPanel').classList.remove('active');
     document.getElementById('stayPanel').classList.remove('active');
     document.getElementById('overlay').classList.remove('active');

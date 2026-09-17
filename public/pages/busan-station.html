@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>釜山駅 プサンえき | BUSAN GUIDE</title>
 <style>
   :root{
@@ -67,7 +67,7 @@
   .ko{font-size:14px;color:var(--sub);margin:0 0 16px;}
   .desc{font-size:14.5px;color:var(--ink);margin:0;}
 
-  /* カテゴリーカード（3つ構成） */
+  /* カテゴリーカード（4つから3つへ統合） */
   .cats{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
@@ -76,7 +76,7 @@
   }
   @media (max-width: 600px) {
     .cats {
-      grid-template-columns:repeat(2, 1fr);
+      grid-template-columns:repeat(3, 1fr); /* 모바일에서도 3열 유지 또는 2열로 하고 싶다면 repeat(2, 1fr) 변경 가능 */
     }
   }
   .ccard{
@@ -152,7 +152,7 @@
     top: 0; right: -100%;
     width: 100%; max-width: 420px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.85); 
+    background: rgba(255, 255, 255, 0.35); 
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%); 
     border-left: 1px solid rgba(255, 255, 255, 0.5);
@@ -259,7 +259,7 @@
     <svg viewBox="0 0 40 40" fill="none"><path d="M4 6h20l12 14-12 14H4V6z" fill="var(--navy)"/></svg>
     BUSAN GUIDE
   </div>
-  <a class="back" href="/#map">← 路線図に戻る</a>
+  <a class="back" href="../index.html#map">← 路線図に戻る</a>
 </nav>
 
 <div class="wrap">
@@ -275,13 +275,14 @@
   </div>
 
   <div class="cats">
-    <a href="javascript:void(0)" class="ccard" onclick="openPanel('foodCafePanel')">
-      <span class="icon">🍱☕</span>
-      <span>グルメ&カフェ</span>
+    <!-- グルメとカフェを統合 -->
+    <a href="javascript:void(0)" class="ccard" onclick="openPanel('foodPanel')">
+      <span class="icon">🍱</span>
+      <span>グルメ＆カフェ</span>
     </a>
 
     <a href="javascript:void(0)" class="ccard" onclick="openPanel('sightseeingPanel')">
-      <span class="icon">📍</span>
+      <span class="icon" style="color: #e53e3e;">📍</span>
       <span>見どころ</span>
     </a>
 
@@ -299,60 +300,61 @@
     ・<b>KTX / SRT:</b> 京釜線の終着駅（ソウル駅から約2時間30分）
   </div>
 
-  <a class="backbtn" href="/#map">路線図に戻ってほかの駅を見る</a>
+  <a class="backbtn" href="../index.html#map">路線図に戻ってほかの駅を見る</a>
 </div>
 
 <footer>
-  BUSAN TRAVEL GUIDE &copy; BUSAN GUIDE TEAM. All Rights Reserved.
+  BUSAN TRAVEL GUIDE &copy; POWER RANGERS. All Rights Reserved.
 </footer>
 
 <!-- オーバーレイ -->
 <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
 
 <!-- ============================================== -->
-<!-- 1. 그루메&카페 합친 패널 -->
+<!-- 1. グルメ & カフェ パネル -->
 <!-- ============================================== -->
-<div class="side-panel" id="foodCafePanel">
+<div class="side-panel" id="foodPanel">
   <div class="panel-header">
-    <h2>🍱☕ 釜山駅 グルメ&カフェ (20選)</h2>
+    <h2>🍱 釜山駅 グルメ＆カフェ (20選)</h2>
     <div class="close-btn" onclick="closeAllPanels()">&times;</div>
   </div>
   <div class="item-list">
+    <!-- 食堂 (10選) -->
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+본전돼지국밥" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">ポンジョンデジクッパ</h3><span class="item-rating">⭐ 4.6</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">ボンジョンデジクッパ</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">본전돼지국밥 (釜山駅前の超行列店)</p>
       <p class="item-desc">30年以上続く老舗。臭みがなく澄んだ深みのあるスープと柔らかい豚肉が特徴で、地元客も並ぶ名店です。</p>
-      <p class="item-tip">💡 浅漬けキムチ（ニラ和え）をスープにたっぷり入れて食べるのが本場流！</p>
+      <p class="item-tip">💡 ニラの和え物（プチュムチム）をスープにたっぷり入れて食べるのが本場流！</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+신발원" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">シンバルウォン (新発園)</h3><span class="item-rating">⭐ 4.7</span></div>
-      <p class="item-jp">신발원 (チャイナタウン名物の中華蒸し餃子)</p>
-      <p class="item-desc">1951年創業の老舗中華ベーカリー・餃子店。肉汁があふれ出す肉餃子やサクサクの揚げ餃子が絶品です。</p>
+      <div class="item-title-wrap"><h3 class="item-title">新発園 (シンバルウォン)</h3><span class="item-rating">⭐ 4.7</span></div>
+      <p class="item-jp">신발원 (チャイナタウン名物の中華点心)</p>
+      <p class="item-desc">1951年創業の老舗中華餃子店。肉汁があふれ出す肉餃子やサクサクの揚げ餃子が絶品です。</p>
       <p class="item-tip">💡 常にテイクアウトと店内利用の行列ができるため、時間に余裕を持って訪問を！</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+초량밀면" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">草梁ミルミョン</h3><span class="item-rating">⭐ 4.3</span></div>
       <p class="item-jp">초량밀면 (コスパ抜群のミルミョン名店)</p>
       <p class="item-desc">漢方薬材を煮込んだコクのあるスープと弾力のある麺が自慢。リーズナブルでボリューム満点です。</p>
-      <p class="item-tip">💡 大きくてジューシーな蒸し餃子（ワンマンドゥ）とのセット注文が必須です。</p>
+      <p class="item-tip">💡 大きくてジューシーな蒸し餃子（王マンドゥ）とのセット注文が必須です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+대건명가돼지국밥" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">テゴンミョンガ デジクッパ</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">デゴンミョンガ デジクッパ</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">대건명가돼지국밥 (濃厚なミルクスープ風クッパ)</p>
       <p class="item-desc">100%豚骨を長時間煮込んだ、白く濃厚でクリーミーなスープが特徴。清潔な店内で旅行者にも人気。</p>
-      <p class="item-tip">💡 茹で豚肉（スユッ）定食を頼むと、包み野菜と一緒に贅沢に味わえます。</p>
+      <p class="item-tip">💡 茹で豚肉（スユク）定食を頼むと、包み野菜と一緒に贅沢に味わえます。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+초량원조불백" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">草梁プルベッ (プルコギ定食)</h3><span class="item-rating">⭐ 4.4</span></div>
-      <p class="item-jp">초량원조불백 (草梁プルベッ通り)</p>
-      <p class="item-desc">甘辛いタレで炒めた豚肉（プルコギ）をテンジャンチゲ（味噌チゲ）やご飯と一緒に味わう定番定食。</p>
-      <p class="item-tip">💡 釜山駅近くの「プルベッ通り」にあり、24時間営業の店舗も多く使い勝手抜群です。</p>
+      <div class="item-title-wrap"><h3 class="item-title">草梁プルベク (プルコギ定食)</h3><span class="item-rating">⭐ 4.4</span></div>
+      <p class="item-jp">초량원조불백 (草梁プルベク通り)</p>
+      <p class="item-desc">甘辛いタレで炒めた豚肉（プルコギ）をテンジャンチゲ（韓国味噌鍋）やご飯と一緒に味わう定番定食。</p>
+      <p class="item-tip">💡 釜山駅近くの「プルベク通り」にあり、24時間営業の店舗も多く使い勝手抜群です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+평산옥" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">平山屋 (ピョンサノッ)</h3><span class="item-rating">⭐ 4.4</span></div>
-      <p class="item-jp">평산옥 (100年の伝統を誇るスユッ専門店)</p>
-      <p class="item-desc">100年以上の歴史を持つ茹で豚肉（スユッ）専門店。特製の甘辛い特製タレをつけていただきます。</p>
-      <p class="item-tip">💡 一緒に注文できるシンプルな「ククス（麺）」との相性が抜群です。</p>
+      <p class="item-jp">평산옥 (100年の伝統を誇るスユク専門店)</p>
+      <p class="item-desc">100年以上の歴史を持つ茹で豚肉（スユク）専門店。特製の甘辛いタレをつけていただきます。</p>
+      <p class="item-tip">💡 一緒に注文できるシンプルな「ククス（韓国風そうめん）」との相性が抜群です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+장성향" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">長城香 (チャンソンヒャン)</h3><span class="item-rating">⭐ 4.5</span></div>
@@ -361,9 +363,9 @@
       <p class="item-tip">💡 一つひとつが拳ほどの大きさがあり、圧倒的なボリュームとカリカリ食感を楽しめます。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+삼진어묵" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">サムジンオムッ 釜山駅店</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">サムジンオムク 釜山駅店</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">삼진어묵 (釜山おでんの老舗ブランド)</p>
-      <p class="item-desc">釜山最古の練り物メーカー。ベーカリースタイルで様々な種類の高級かまぼこ（オムッ）を選べます。</p>
+      <p class="item-desc">釜山最古の練り物メーカー。ベーカリースタイルで様々な種類の高級かまぼこ（オムク）を選べます。</p>
       <p class="item-tip">💡 KTXに乗る前のお土産購入や、移動中のおやつにぴったりです。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+영동밀면" target="_blank" class="item-card">
@@ -373,37 +375,39 @@
       <p class="item-tip">💡 氷の浮いた冷たいビビンミルミョンは夏場に最高の喉越しです。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+은하갈비" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">銀河カルビ (ウナカルビ)</h3><span class="item-rating">⭐ 4.4</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">銀河(ウナ)カルビ</h3><span class="item-rating">⭐ 4.4</span></div>
       <p class="item-jp">은하갈비 (草梁デジカルビ通り)</p>
       <p class="item-desc">アルミホイルを敷いた鉄板でタレを煮詰めながら焼く、伝統的なデジカルビ（豚カルビ）の名店。</p>
       <p class="item-tip">💡 秘伝のタレがしっかり染み込んだ柔らかいお肉とご飯の相性が最高です。</p>
     </a>
+    
+    <!-- カフェ (10選) -->
     <a href="https://www.google.com/maps/search/?api=1&query=초량1941" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">草梁1941</h3><span class="item-rating">⭐ 4.6</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">草梁(チョリャン)1941</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">초량1941 (レトロな日本家屋リノベカフェ)</p>
-      <p class="item-desc">1941年に建てられた木造建築を活用した感性豊かなカフェ。緑豊かな庭園と手作り牛乳（バニラ牛乳、抹茶牛乳等）が人気。</p>
-      <p class="item-tip">💡 瓶に入ったレトロで美味しい手作り牛乳とサンドイッチが看板メニューです。</p>
+      <p class="item-desc">1941年に建てられた木造建築を活用した感性豊かなカフェ。緑豊かな庭園と自家製牛乳（バニラ牛乳、抹茶牛乳等）が人気。</p>
+      <p class="item-tip">💡 瓶に入ったレトロで美味しい自家製牛乳とサンドイッチが看板メニューです。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=초량845" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">草梁845</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">草梁(チョリャン)845</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">초량845 (釜山港を見下ろすパノラマビュー)</p>
       <p class="item-desc">「草梁1941」のすぐ隣に位置するモダンな大型カフェ。大きな窓から釜山港と街並みを一望できます。</p>
       <p class="item-tip">💡 開放感あふれる空間で、景色を眺めながらゆっくりカフェタイムを楽しめます。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+브라운핸즈백제" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">Brown Hands 百済</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">ブラウンハンズ百済</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">브라운핸즈백제 (旧百済病院のリノベカフェ)</p>
-      <p class="item-desc">1922年に建てられた釜山初の近代式病院「旧百済病院」の建物をそのまま活かしたヴィンテージ感あふれる空間。</p>
+      <p class="item-desc">1922年に建てられた釜山初の近代式病院「旧百済(ペクチェ)病院」の建物をそのまま活かしたヴィンテージ感あふれる空間。</p>
       <p class="item-tip">💡 釜山駅徒歩5分。赤煉瓦と高い天井が醸し出すレトロな雰囲気が魅力的です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+창비부산" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">Changbi Log (創批)</h3><span class="item-rating">⭐ 4.7</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">創批(チャンビ)釜山</h3><span class="item-rating">⭐ 4.7</span></div>
       <p class="item-jp">창비부산 (旧百済病院2階のブックカフェ)</p>
       <p class="item-desc">有名出版社「創批（チャンビ）」が運営する文化ブックエリア。歴史的建築の中で静かに読書を楽しめます。</p>
-      <p class="item-tip">💡 1階のBrown Handsと合わせて訪問するのにぴったりな落ち着いたスポットです。</p>
+      <p class="item-tip">💡 1階のブラウンハンズ百済と合わせて訪問するのにぴったりな落ち着いたスポットです。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+문화공감수정" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">文化共感 水晶 (旧貞蘭閣)</h3><span class="item-rating">⭐ 4.6</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">文化共感 水晶(スジョン)</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">문화공감 수정 (登録文化財 伝統茶房)</p>
       <p class="item-desc">登録文化財に指定されている伝統建築。IU（アイユー）のMV撮影地としても有名な日本式伝統茶房です。</p>
       <p class="item-tip">💡 廊下の縁側で静かに伝統茶やナツメ茶を味わいながら歴史を感じられます。</p>
@@ -411,7 +415,7 @@
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+카페+유라시아" target="_blank" class="item-card">
       <div class="item-title-wrap"><h3 class="item-title">Café ユーラシア</h3><span class="item-rating">⭐ 4.4</span></div>
       <p class="item-jp">카페 유라시아 (釜山駅広場内)</p>
-      <p class="item-desc">釜山駅ユーラシアプラザ内にある快適なカフェ。列車を待つ間の休憩やPC作業にも最適な便利な立地。</p>
+      <p class="item-desc">釜山駅ユーラシアプラットフォーム内にある快適なカフェ。列車を待つ間の休憩やPC作業にも最適な便利な立地。</p>
       <p class="item-tip">💡 広場のイベントや景色を眺めながら気軽にコーヒーを楽しめます。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+컴포즈커피" target="_blank" class="item-card">
@@ -421,7 +425,7 @@
       <p class="item-tip">💡 移動前や観光前にサクッとテイクアウトするのに最適です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+카페마당" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">Café Madang</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">カフェマダン(마당)</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">카페마당 (山腹道路の絶景隠れ家)</p>
       <p class="item-desc">草梁洞の山腹道路沿いに位置する静かな隠れ家風カフェ。夜には美しい釜山港の夜景が一望できます。</p>
       <p class="item-tip">💡 夕暮れから夜にかけての訪問がロマンチックでおすすめです。</p>
@@ -442,7 +446,7 @@
 </div>
 
 <!-- ============================================== -->
-<!-- 3. 見どころ パネル -->
+<!-- 2. 見どころ パネル -->
 <!-- ============================================== -->
 <div class="side-panel" id="sightseeingPanel">
   <div class="panel-header">
@@ -451,37 +455,37 @@
   </div>
   <div class="item-list">
     <a href="https://www.google.com/maps/search/?api=1&query=초량+이바구길" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">1. 草梁イバグギル (168階段)</h3><span class="item-rating">⭐ 4.6</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">草梁(チョリャン)イバグギル (168階段)</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">초량 이바구길 & 168계단</p>
       <p class="item-desc">釜山の近代史と庶民の暮らしが残るノスタルジックな路地。「168階段」を登りきると、釜山港を見渡す大パノラマが広がります。</p>
       <p class="item-tip">💡 階段沿いにはレトロな展示や可愛いお店が点在しています！</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산역+차이나타운" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">2. 釜山駅 チャイナタウン & テキサス通り</h3><span class="item-rating">⭐ 4.4</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">釜山駅 チャイナタウン & テキサス通り</h3><span class="item-rating">⭐ 4.4</span></div>
       <p class="item-jp">부산역 차이나타운 & 텍사스거리</p>
       <p class="item-desc">釜山駅の真向かいに位置する異国情緒あふれるエリア。赤い提灯が並ぶ中華街と、ロシア・多国籍な文化が混ざり合う独特の街並みです。</p>
       <p class="item-tip">💡 絶品の中華蒸し餃子やロシアパンを味わえるグルメスポットでもあります。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=구+백제병원" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">3. 旧百済病院 (近代建築遺産)</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">旧百済(ペクチェ)病院 (近代建築遺産)</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">구 백제병원 (釜山初の近代式病院)</p>
       <p class="item-desc">1922年に建てられた釜山初の近代式病院建築物。現在は登録有形文化財としてカフェや文化スペースに活用されています。</p>
       <p class="item-tip">💡 100年の歴史を感じさせる赤煉瓦のレトロな外観は写真映え抜群です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=유라시아플랫폼" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">4. 釜山駅 ユーラシアプラザ</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">釜山駅 ユーラシアプラットフォーム</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">부산역 유라시아플랫폼</p>
-      <p class="item-desc">釜山駅前広場に位置する複合文化空間。メディアアート展示やスタートアップ空間、広々とした屋外デッキを備えています。</p>
+      <p class="item-desc">釜山駅前広場に位置する複合文化空間。メディアアート展示やスタートアップ支援空間、広々とした屋外デッキを備えています。</p>
       <p class="item-tip">💡 夜には綺麗なライトアップと噴水ショー（季節開催）が楽しめます。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=부산항+친수공원" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">5. 釜山港 親水公園 (北港再開発地区)</h3><span class="item-rating">⭐ 4.6</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">釜山港 親水公園 (北港再開発地区)</h3><span class="item-rating">⭐ 4.6</span></div>
       <p class="item-jp">부산항 친수공원 (북항 재개발구역)</p>
       <p class="item-desc">釜山駅裏手（KTXコンコースから直結橋あり）に広がる新しいウォーターフロント公園。海沿いの散歩道や綺麗な運河が整備されています。</p>
       <p class="item-tip">💡 釜山港大橋を望む景色が素晴らしく、夕方や夜の散歩に最適です。</p>
     </a>
     <a href="https://www.google.com/maps/search/?api=1&query=유치환의+우체통" target="_blank" class="item-card">
-      <div class="item-title-wrap"><h3 class="item-title">6. 柳致環(ユ・チファン)のポスト</h3><span class="item-rating">⭐ 4.5</span></div>
+      <div class="item-title-wrap"><h3 class="item-title">柳致環(ユ・チファン)のポスト</h3><span class="item-rating">⭐ 4.5</span></div>
       <p class="item-jp">유치환의 우체통 (山腹道路展望台)</p>
       <p class="item-desc">韓国の詩人・柳致環を称えて作られた山腹道路沿いの展望台。1年後に届く「赤いポスト」と、釜山港大橋を見下ろす絶景が有名です。</p>
       <p class="item-tip">💡 釜山駅からバス（38, 86, 186番など）で簡単にアクセス可能です。</p>
@@ -490,7 +494,7 @@
 </div>
 
 <!-- ============================================== -->
-<!-- 4. 宿泊 パネル (新規追加・整理) -->
+<!-- 3. 宿泊 パネル -->
 <!-- ============================================== -->
 <div class="side-panel" id="hotelPanel">
   <div class="panel-header">
@@ -541,9 +545,8 @@
   }
 
   function closeAllPanels() {
-    document.getElementById('foodCafePanel').classList.remove('active');
-    document.getElementById('sightseeingPanel').classList.remove('active');
-    document.getElementById('hotelPanel').classList.remove('active');
+    const panels = document.querySelectorAll('.side-panel');
+    panels.forEach(panel => panel.classList.remove('active'));
     document.getElementById('overlay').classList.remove('active');
     document.body.style.overflow = 'auto';
   }

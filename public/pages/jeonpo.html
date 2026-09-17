@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>田浦駅 チョンポえき | BUSAN GUIDE</title>
 <style>
   :root{
@@ -73,11 +73,6 @@
     grid-template-columns:repeat(3, 1fr);
     gap:10px;
     margin-top:32px;
-  }
-  @media (max-width: 480px) {
-    .cats{
-      grid-template-columns:repeat(2, 1fr);
-    }
   }
   .ccard{
     background:var(--white);
@@ -270,7 +265,7 @@
     <svg viewBox="0 0 40 40" fill="none"><path d="M4 6h20l12 14-12 14H4V6z" fill="var(--navy)"/></svg>
     BUSAN GUIDE
   </div>
-  <a class="back" href="/#map">← 路線図に戻る</a>
+  <a class="back" href="../index.html#map">← 路線図に戻る</a>
 </nav>
 
 <div class="wrap">
@@ -287,7 +282,7 @@
   </div>
 
   <div class="cats">
-    <a href="javascript:void(0)" class="ccard" onclick="openPanel('gourmetPanel')">
+    <a href="javascript:void(0)" class="ccard" onclick="openPanel('foodPanel')">
       <span class="icon">🍱</span>
       <span>グルメ</span>
     </a>
@@ -306,23 +301,23 @@
   <!-- 숙박 서면 유도 안내 박스 추가 -->
   <div class="notice-box">
     💡 <b>宿泊について</b><br>
-    田浦(チョンポ)は西面(ソミョン)と隣接しているため、<br>宿泊施設は<a href="seomyeon.html">「西面駅」</a>をご参照ください。
+    田浦(チョンポ)は西面(ソミョン)と隣接しているため、<br>宿泊施設は<a href="./seomyeon.html">「西面駅」</a>をご参照ください。
   </div>
 
-  <a class="backbtn" href="/#map">路線図に戻ってほかの駅を見る</a>
+  <a class="backbtn" href="../index.html#map">路線図に戻ってほかの駅を見る</a>
 </div>
 
 <footer>
-  BUSAN TRAVEL GUIDE &copy; BUSAN GUIDE TEAM. All Rights Reserved.
+  BUSAN TRAVEL GUIDE &copy; POWER RANGERS. All Rights Reserved.
 </footer>
 
 <!-- 오버레이 -->
 <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
 
 <!-- ============================================== -->
-<!-- 1. 그루메 패널 -->
+<!-- 1. 식사(グルメ) 패널 -->
 <!-- ============================================== -->
-<div class="side-panel" id="gourmetPanel">
+<div class="side-panel" id="foodPanel">
   <div class="panel-header">
     <h2>🍱 田浦 グルメ (10選)</h2>
     <div class="close-btn" onclick="closeAllPanels()">&times;</div>
@@ -392,7 +387,7 @@
 </div>
 
 <!-- ============================================== -->
-<!-- 2. 카페 패널 -->
+<!-- 2. 카페(カフェ) 패널 -->
 <!-- ============================================== -->
 <div class="side-panel" id="cafePanel">
   <div class="panel-header">
@@ -545,7 +540,7 @@
   }
 
   function closeAllPanels() {
-    document.getElementById('gourmetPanel').classList.remove('active');
+    document.getElementById('foodPanel').classList.remove('active');
     document.getElementById('cafePanel').classList.remove('active');
     document.getElementById('sightseeingPanel').classList.remove('active');
     document.getElementById('overlay').classList.remove('active');
